@@ -3,10 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" i
           ntegrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -28,42 +25,37 @@
 <!-- Навигация  -->
 
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand mr-auto mr-lg-0" href="#">Offcanvas navbar</a>
-        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Notifications</a>
-                </li>
-                <li class="nav-item">
 
-                </li>
-                <li class="nav-item">
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:utext="${user.getEmail()}">with roles: </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link">with roles: </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:utext="${user.getRolesToString()}">Notifications</a>
+            </li>
 
-                </li>
-                <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
 
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
 
-                <a class="dropdown-item" href="/logout">Logout</a>
-            </form>
-        </div>
-    </nav>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
 
+            <a class="dropdown-item" href="/logout">Logout</a>
+        </form>
+    </div>
+</nav>
 
 
 <!-- Разметка  -->
@@ -71,89 +63,127 @@
 <div class="row" style="">
 
     <div class="  col-md-2">
-        <button type="button" class="btn btn-primary btn-lg btn-block">Кнопка блочного уровня</button>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Кнопка блочного уровня</button>
-
+        <ul class="nav flex-column nav-pills ">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="/admin">Admin</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user">User</a>
+            </li>
+        </ul>
 
     </div>
 
+
     <div class="col-md-10">
+        <br>
 
 
-        <!-- Таблица Юзерс  -->
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
+        <h1>Admin panel</h1>
 
-            <tbody>
-            <tr>
-            <tr th:each="usr : ${users}">
-                <td><a th:href="@{/admin/{id}/edit(id=${usr.getId()})}" th:utext="${usr.getId()}">Id</a></td>
 
-                <!--            <td th:utext ="${usr.getId()}">...</td>-->
-                <td th:utext="${usr.getName()}">...</td>
-                <td th:utext="${usr.getEmail()}">...</td>
-                <td th:utext="${usr.getRoles()}">...</td>
-                <td>
-                    <form th:method="DELETE" th:action="@{/admin/{id}(id=${usr.getId()})}">
-                        <input type="submit" value="Удалить пользователя"/>
-                    </form>
-                </td>
+        <!-- Вкладки -->
 
-            </tr>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="nav-userstable" data-toggle="tab" href="#userstable"
+                   role="tab" aria-controls="home" aria-selected="true">Users table</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav-newuser" data-toggle="tab" href="#newuser"
+                   role="tab" aria-controls="profile" aria-selected="false">New user</a>
+            </li>
 
-            </tbody>
-        </table>
+        </ul>
 
-        <div>
-            <table border="4">
-                <tr>
-                    <th>ID</th>
-                    <th>Имя пользователя</th>
-                    <th>e-mail</th>
-                    <th>Пароль</th>
-                    <th>Роли</th>
-                    <th>Удалить</th>
-                </tr>
-                <tr th:each="usr : ${users}">
-                    <td><a th:href="@{/admin/{id}/edit(id=${usr.getId()})}" th:utext="${usr.getId()}">Id</a></td>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="userstable" role="tabpanel" aria-labelledby="nav-userstable">
 
-                    <!--            <td th:utext ="${usr.getId()}">...</td>-->
-                    <td th:utext="${usr.getName()}">...</td>
-                    <td th:utext="${usr.getEmail()}">...</td>
-                    <td th:utext="${usr.getPassword()}">...</td>
-                    <td th:utext="${usr.getRoles()}">...</td>
-                    <td>
-                        <form th:method="DELETE" th:action="@{/admin/{id}(id=${usr.getId()})}">
-                            <input type="submit" value="Удалить пользователя"/>
-                        </form>
-                    </td>
+                <!-- Таблица Юзерс  -->
 
-                </tr>
-            </table>
+                <div style="height: 68px;">
+                    <br>
+                    <h5>All users</h5></div>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                    <tr th:each="usr : ${users}">
+                        <td><a th:href="@{/admin/{id}/edit(id=${usr.getId()})}" th:utext="${usr.getId()}">Id</a></td>
+
+                        <!--            <td th:utext ="${usr.getId()}">...</td>-->
+                        <td th:utext="${usr.getName()}">...</td>
+                        <td th:utext="${usr.getEmail()}">...</td>
+                        <td th:utext="${usr.getRolesToString()}">...</td>
+                        <td>
+
+                            <!-- edit  -->
+                            <form th:method="DELETE" th:action="@{/admin/{id}(id=${usr.getId()})}">
+                                <input type="submit" value="Edit"/>
+                            </form>
+                        </td>
+                        <td>
+                            <!-- delete  -->
+                            <form th:method="DELETE" th:action="@{/admin/{id}(id=${usr.getId()})}">
+                                <input type="submit" value="Delete"/>
+                            </form>
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+
+                <div class="tab-pane fade" id="newuser" role="tabpanel" aria-labelledby="nav-newuser">
+                    <!--            NEw user-->
+
+
+
+                    <br>
+                    <h5>Add new user</h5>
+
+
+
+
+
+
+                </div>
+
+
+
+
+
         </div>
 
 
     </div>
-</div>
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </body>
 </html>
