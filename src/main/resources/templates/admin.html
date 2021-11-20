@@ -3,47 +3,157 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Все пользователи</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" i
+          ntegrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <title>Offcanvas template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/editor.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="offcanvas.css" rel="stylesheet">
+
+    <title>Admin panel</title>
 </head>
+
+
 <body>
 
-<br/>
-<div>
-    <table border="4">
-        <tr>
-            <th>ID</th>
-            <th>Имя пользователя</th>
-            <th>e-mail</th>
-            <th>Пароль</th>
-            <th>Роли</th>
-            <th>Удалить</th>
-        </tr>
-        <tr th:each="usr : ${users}">
-            <td><a th:href="@{/admin/{id}/edit(id=${usr.getId()})}" th:utext="${usr.getId()}">Id</a></td>
+<!-- Навигация  -->
 
-            <!--            <td th:utext ="${usr.getId()}">...</td>-->
-            <td th:utext="${usr.getName()}">...</td>
-            <td th:utext="${usr.getEmail()}">...</td>
-            <td th:utext="${usr.getPassword()}">...</td>
-            <td th:utext="${usr.getRoles()}">...</td>
-            <td>
-                <form  th:method="DELETE" th:action="@{/admin/{id}(id=${usr.getId()})}">
-                    <input type="submit" value="Удалить пользователя"/>
-                </form>
-            </td>
 
-        </tr>
-    </table>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand mr-auto mr-lg-0" href="#">Offcanvas navbar</a>
+        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Notifications</a>
+                </li>
+                <li class="nav-item">
+
+                </li>
+                <li class="nav-item">
+
+                </li>
+                <li class="nav-item dropdown">
+
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+
+                <a class="dropdown-item" href="/logout">Logout</a>
+            </form>
+        </div>
+    </nav>
+
+
+
+<!-- Разметка  -->
+
+<div class="row" style="">
+
+    <div class="  col-md-2">
+        <button type="button" class="btn btn-primary btn-lg btn-block">Кнопка блочного уровня</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block">Кнопка блочного уровня</button>
+
+
+    </div>
+
+    <div class="col-md-10">
+
+
+        <!-- Таблица Юзерс  -->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+            <tr th:each="usr : ${users}">
+                <td><a th:href="@{/admin/{id}/edit(id=${usr.getId()})}" th:utext="${usr.getId()}">Id</a></td>
+
+                <!--            <td th:utext ="${usr.getId()}">...</td>-->
+                <td th:utext="${usr.getName()}">...</td>
+                <td th:utext="${usr.getEmail()}">...</td>
+                <td th:utext="${usr.getRoles()}">...</td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/admin/{id}(id=${usr.getId()})}">
+                        <input type="submit" value="Удалить пользователя"/>
+                    </form>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+        <div>
+            <table border="4">
+                <tr>
+                    <th>ID</th>
+                    <th>Имя пользователя</th>
+                    <th>e-mail</th>
+                    <th>Пароль</th>
+                    <th>Роли</th>
+                    <th>Удалить</th>
+                </tr>
+                <tr th:each="usr : ${users}">
+                    <td><a th:href="@{/admin/{id}/edit(id=${usr.getId()})}" th:utext="${usr.getId()}">Id</a></td>
+
+                    <!--            <td th:utext ="${usr.getId()}">...</td>-->
+                    <td th:utext="${usr.getName()}">...</td>
+                    <td th:utext="${usr.getEmail()}">...</td>
+                    <td th:utext="${usr.getPassword()}">...</td>
+                    <td th:utext="${usr.getRoles()}">...</td>
+                    <td>
+                        <form th:method="DELETE" th:action="@{/admin/{id}(id=${usr.getId()})}">
+                            <input type="submit" value="Удалить пользователя"/>
+                        </form>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
 </div>
 
-<br/>
-</hr>
 
-<a href="/admin/new">Создать нового пользователя</a>
-<br/>
-<br/>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="ВЫХОД"/>
-</form>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
