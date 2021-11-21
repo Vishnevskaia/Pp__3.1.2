@@ -1,6 +1,7 @@
 package com.vishnevskaia311.service;
 
 import com.vishnevskaia311.dao.UserDaoImpl;
+import com.vishnevskaia311.model.Role;
 import com.vishnevskaia311.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,12 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
     private UserDaoImpl userDao;
+
 
     public UserServiceImpl(UserDaoImpl userDao) {
 

@@ -10,6 +10,7 @@ public interface UserDao {
     List<User> index();
 
 
+
     User getUserByName(String name);
 
     User show(Long id);
